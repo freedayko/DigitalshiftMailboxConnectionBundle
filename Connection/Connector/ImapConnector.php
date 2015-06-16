@@ -226,6 +226,9 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
     {
         $mailboxInfo = $this->imapLibrary->imapCheck($this->connection);
 
+        if (empty($mailboxInfo->Nmsgs)) {
+            return array();
+        }
         /* get overview of all messages in connected mailbox and return it */
         return $this->imapLibrary->imapFetchOverview(
             $this->connection,
@@ -319,5 +322,17 @@ class ImapConnector extends BaseMailboxConnector implements MailboxConnectorInte
         return BaseMailboxConnector::TYPE_IMAP;
     }
 
+    public function deleteMessage($messageNumber, $isUid = false)
+    {
+        if (!$this->connection) {
+            $this->connect();
+        }
 
-} 
+        return $this->imapLibrary->imapDelete($this->connection, $messageNumber, $isUid);
+    }
+    
+    public function expunge()
+    {
+        return $this->imapLibrary->imapExpunge($this->connection);
+    }
+}

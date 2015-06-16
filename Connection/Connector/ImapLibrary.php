@@ -115,4 +115,27 @@ class ImapLibrary
     {
         return imap_uid($imapResource, $messageNumber);
     }
-} 
+    
+    /**
+     * @param resource $imapResource
+     * @param int $messageNumber
+     * @param bool $isUid
+     * @return bool
+     */    
+    public function imapDelete($imapResource, $messageNumber, $isUid = false)
+    {
+        $options = ($isUid) ? FT_UID : 0;
+
+        return imap_delete($imapResource, $messageNumber, $options);
+    }
+    
+    /**
+     * 
+     * @param resource $imapResource
+     * @return bool
+     */
+    public function imapExpunge($imapResource)
+    {
+        return imap_expunge($imapResource);
+    }
+}

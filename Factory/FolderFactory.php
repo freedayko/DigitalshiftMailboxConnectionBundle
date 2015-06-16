@@ -84,7 +84,7 @@ class FolderFactory
     private function setMessagesByMessageList(Folder $folder, array $messages)
     {
         foreach ($messages as $message) {
-            $messageInstance = $this->mimeMessageFactory->byRawMessage($message, null, null, $folder);
+            $messageInstance = $this->mimeMessageFactory->byRawMessage($message, $message->mailboxPath, $message->mailboxUid, $folder);
             $folder->addMessage($messageInstance);
         }
     }

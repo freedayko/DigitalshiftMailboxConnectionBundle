@@ -81,23 +81,31 @@ class MimeMessage
     /**
      * hydrate receive-date from headers
      *
-     * @todo: implement this method
-     *
      * @return \DateTime
      */
     public function getDateTime()
     {
+        return new \DateTime($this->header->get('Date'));
     }
 
     /**
      * hydrate subject from headers
      *
-     * @todo: implement this method
-     *
      * @return string
      */
     public function getSubject()
     {
+        return $this->header->get('Subject');
+    }
+
+    /**
+     * hydrate sender from headers
+     *
+     * @return string
+     */
+    public function getSender()
+    {
+        return $this->header->get('From');
     }
 
     /**
